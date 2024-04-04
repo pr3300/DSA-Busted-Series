@@ -1,71 +1,67 @@
-/************************************************************
+// this is the leetcode solution
+class Solution {
+public:
 
-    Following is the linked list node structure.
-    
-    template <typename T>
-    class Node {
-        public:
-        T data;
-        Node* next;
-
-        Node(T data) {
-            next = NULL;
-            this->data = data;
+    void insertattail(ListNode*&head, int data){
+        ListNode*q=new ListNode();
+        q->val=data;
+        q->next=NULL;
+        ListNode*p=head;
+        while(p->next!=NULL){
+            p=p->next;
         }
-
-        ~Node() {
-            if (next != NULL) {
-                delete next;
+        p->next=q;
+    }
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        ListNode*p=list1;
+        ListNode*q=list2;
+        if(p==NULL){
+            return q;
+        }
+        if(q==NULL){
+            return p;
+        }
+        ListNode*ans=new ListNode();
+        ans->val=-1;
+        ans->next=NULL;
+        while(p!=NULL || q!=NULL){
+             if(p==NULL){
+               insertattail(ans,q->val);
+                q=q->next;
+                continue;
+                
             }
-        }
-    };
+            if(q==NULL){
+               insertattail(ans,p->val);
+                p=p->next;
+                continue;
+            }
+           
+            if((q->val)<(p->val)){
+               insertattail(ans,q->val);
+                q=q->next;
+                continue;
 
-************************************************************/
+            }
+             if((q->val)>(p->val)){
+                insertattail(ans,p->val);
+                p=p->next;
+                continue;
+                
+            }
+            if((q->val)==(p->val)){
+                insertattail(ans,p->val);
+                p=p->next;
+                insertattail(ans,q->val);
+                q=q->next;
 
-void solve(Node<int>* first, Node<int>* second) {
-    
-    
-    Node* curr1 = first;
-    Node* next1 = curr1 -> next;
-    
-    Node* curr2 = second;
-    Node* next2 = curr2 -> next;
-    
-    while(next1 != NULL && curr2 != NULL) {
-        
-        if( (curr2 -> data >= curr1 -> data ) 
-           && ( curr2 -> data <= next1 -> data)) {
-            
-            curr1 -> next = curr2;
-            curr2 -> next = next1;
-            curr1 = curr2;
-            curr2 = next2;
-        }
-        else {
-            
+            }
+
         }
         
-        
-    }
-    
-    
-}
+        return ans->next;
 
-Node<int>* sortTwoLists(Node<int>* first, Node<int>* second)
-{
-    if(first == NULL)
-        return second;
     
-    if(second == NULL)
-        return first;
-    
-    if(first -> data <= second -> data ){
-        solve(first, second);
     }
-    else
-    {
-        solve(second, first);
-    }
-    
-    
-}
+};
+
