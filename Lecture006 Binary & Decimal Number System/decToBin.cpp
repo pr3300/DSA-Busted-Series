@@ -25,3 +25,20 @@ int main() {
     cout<<" Answer is " << ans << endl;
     return 0;
 }
+// in this code we also use the parity digit to get the answer
+// for example
+int num;
+cin>>num;
+int ans = 0;
+int power = 1;
+while(a>0){
+    int paritydigit = a%2;
+    ans+=paritydigit*power;
+    power*=10;
+    a/=2;
+
+}
+
+cout<<ans<<endl;
+}
+// in this code using parity digit we can convert our code desimal to binary with less code
