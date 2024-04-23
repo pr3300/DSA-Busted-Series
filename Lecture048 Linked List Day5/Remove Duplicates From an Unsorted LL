@@ -1,0 +1,85 @@
+Q.Remove Duplicates From an Unsorted Linked List:
+  https://www.naukri.com/code360/problems/remove-duplicates-from-unsorted-linked-list_1069331
+  Solution:-
+
+  	// Not Optimized: using map
+			#include <bits/stdc++.h> 
+			/****************************************************************
+				Following is the class structure of the Node class:
+				class Node {
+				public:
+					int data;
+					Node *next;
+					Node(int data) {
+						this->data = data;
+						this->next = NULL;
+					}
+				};
+			*****************************************************************/
+			Node *removeDuplicates(Node *head) {
+				Node *cur = head;
+				Node *prev = NULL;
+				map<int, bool> vis;
+				
+				while(cur){
+					if(vis[cur -> data]){
+						Node *temp = cur;
+
+						prev -> next = cur -> next;
+						cur = cur -> next;
+
+						delete temp;
+					}else{
+						vis[cur -> data] = 1;
+						prev = cur;
+						cur =cur -> next;
+					}
+				}
+				return head;
+			}
+
+			// or TC: O(N²) & SC: O(1), Using loop
+				Node *removeDuplicates(Node *head){
+					Node *i, *j;
+					i = head;
+					while(i){
+						j = i -> next;
+						Node *prev = i;
+
+						while(j){
+							if(i -> data == j -> data){
+								prev -> next = j -> next;
+
+								delete j;
+
+								j = prev -> next;
+							}else{
+								prev = j;        
+								j= j-> next;
+							}
+						}
+						i = i-> next;
+					}
+					return head;
+				}
+		
+		// Optimized: using Map
+			Node *removeDuplicates(Node *head){
+				unordered_map<int, bool> vis;
+				if(!head)
+					return head;
+
+				vis[head -> data] = 1;
+				Node *cur = head;
+
+				while(cur -> next){
+					if(vis[cur -> next -> data]){
+						cur -> next = cur -> next -> next;
+					}else{
+						vis[cur -> next -> data] = 1;
+						cur = cur -> next;
+					}
+				}
+				return head;
+			}
+	
