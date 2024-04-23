@@ -1,0 +1,90 @@
+Split A Circular Linked List: (Coding Ninja)
+	https://www.naukri.com/code360/problems/split-a-circular-linked-list_1071003
+
+	#include <bits/stdc++.h> 
+	/********************************
+		class Node {
+			public:
+			int data;
+			Node *next;
+			Node(int data) {
+				this->data = data;
+				this->next = NULL;
+			}
+		};
+	********************************/
+	// Solution 1:
+		void splitCircularList(Node *head) {
+			if(head == NULL)
+				return ;
+			
+			Node *slow, *fast;
+			slow = fast = head;
+
+			while(fast -> next != head){
+				fast = fast -> next;
+				if(fast -> next == head)
+					break;
+
+				fast = fast -> next;
+				slow = slow -> next;
+			}
+			fast -> next = slow -> next;
+			slow -> next = head;
+		}
+
+	// Solution 2:Brute Force:
+		int getLen(Node *h){
+			int l=0;
+			Node *Same = h;
+			
+			while(h){
+				l++;
+				h = h-> next;
+
+				if(Same == h)
+					break;
+			}
+			return l;
+		}
+		void splitCircularList(Node *head) {
+			if(!head)
+				return ;
+			int len = getLen(head) / 2;
+			Node *first = head;
+
+			while(--len)
+				first = first -> next;
+
+			Node *second = first -> next;
+			Node *temp = second;
+
+			while(second -> next != head)
+				second = second -> next;
+
+			first -> next = head;
+			second -> next = temp;
+		}
+
+Split a Circular Linked List into two halves: (GFG)
+	https://www.geeksforgeeks.org/problems/split-a-circular-linked-list-into-two-halves/1
+	// Solution:
+	void splitList(Node *head, Node **head1_ref, Node **head2_ref) {
+		Node *slow = head;
+		Node *fast = head;
+
+		while(fast -> next != head){
+			fast = fast -> next;
+			if(fast -> next == head)
+				break;
+				
+			fast = fast -> next;
+			slow = slow -> next;
+		}
+		
+		fast -> next = slow -> next;
+		slow -> next = head;
+		
+		*head1_ref = head;
+		*head2_ref = (fast -> next);
+	}
