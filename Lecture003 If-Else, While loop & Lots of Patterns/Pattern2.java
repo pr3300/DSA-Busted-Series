@@ -19,7 +19,7 @@ public class Pattern2 {
         int noOfRows = sc.nextInt();
 
         // Procedure to Print the Required Pattern
-        for(int row = 1; row < noOfRows; row++){
+        for(int row = 1; row <= noOfRows; row++){
             for(int column = 1; column <= row; column++){
                 System.out.print("*");
             }
